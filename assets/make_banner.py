@@ -59,12 +59,10 @@ def build():
                            edgecolor="none", zorder=2))
     place(ax, trimmed(APP_LOGO), H / 2, H / 2, 150)
 
-    ax.text(H + 54, H / 2 + 26, "PyREST2", fontsize=52, fontweight="bold",
+    ax.text(H + 54, H / 2 + 22, "PyREST2", fontsize=52, fontweight="bold",
             color=INK, ha="left", va="center", zorder=5)
-    ax.text(H + 58, H / 2 - 40, "replica exchange with solute tempering",
-            fontsize=18, color=GREY, ha="left", va="center", zorder=5)
-    ax.text(H + 58, H / 2 - 74, "a desktop application for OpenMM",
-            fontsize=18, color=GREY, ha="left", va="center", zorder=5)
+    ax.text(H + 58, H / 2 - 46, "A desktop application for REST2",
+            fontsize=21, color=GREY, ha="left", va="center", zorder=5)
 
     # lab logo on the right, with a hairline separating it from the wordmark
     ax.plot([900, 900], [70, 230], color="#E6E9EF", lw=2, zorder=4)
