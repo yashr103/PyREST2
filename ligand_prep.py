@@ -11,16 +11,11 @@ a ligand for tleap, based on the options chosen on the "Ligand Prep" page:
     - spin multiplicity
     - whether to generate the frcmod file
 
-Equivalent by hand to:
+Equivalent to:
 
     antechamber -i ligand.sdf -fi sdf -o ligand.mol2 -fo mol2 -c bcc -s 2 -at gaff2
     parmchk2 -i ligand.mol2 -f mol2 -o ligand.frcmod -s gaff2
 
-Like system_generation.py's tleap step, antechamber/parmchk2 are AmberTools
-binaries that typically live in a dedicated conda environment and need more
-than just their own directory on PATH to run correctly (LD_LIBRARY_PATH,
-data file lookup, etc.) - see the conda_env/conda_env_path/conda_exe options
-on prepare_ligand() below.
 """
 
 import os
