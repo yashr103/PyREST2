@@ -235,7 +235,7 @@ def run_rest2_analysis(
 
     os.makedirs(output_dir, exist_ok=True)
 
-    # ── Run metadata recorded by simulation_run.py ──────────────────────
+    # Run metadata recorded by simulation_run.py 
     run_meta = None
     meta_path = os.path.join(input_dir, "run_metadata.json")
     if os.path.isfile(meta_path):
@@ -674,7 +674,7 @@ def run_rest2_analysis(
 
     log(f"  System type     : {'protein only' if protein_only else 'protein-ligand complex'}")
 
-    # ── 3. REMD diagnostic plots ─────────────────────────────────────────
+    # 3. REMD diagnostic plots 
     def plot_acceptance():
         if S["n_attempts"] is None or len(S["n_attempts"]) == 0:
             log("WARNING: no acceptance data to plot.")
@@ -918,7 +918,7 @@ def run_rest2_analysis(
                     f"({temperatures[s]:.0f} K): {state_err}"
                 )
 
-        # ── Export full per-frame, per-state structural metrics to CSV ──
+        # Export full per-frame, per-state structural metrics to CSV 
         all_states = sorted(state_trajs.keys())
         combined_rows = []
         for s in all_states:
@@ -1224,7 +1224,7 @@ def run_rest2_analysis(
     if S["state_trajs"] and not skip_structural:
         run_structural_block()
 
-    # ── 4b. Energy decomposition: E_solute (intramolecular) vs E_solute-water (interaction) - the classic REST validation
+    # 4b. Energy decomposition: E_solute (intramolecular) vs E_solute-water (interaction) - the classic REST validation
 
     def run_energy_decomposition_block():
         if not HAS_OPENMM_PARMED:
