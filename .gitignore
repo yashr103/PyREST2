@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+/.venv/
+/venv/
+/env/
+
+# Cython / packaging build artifacts (setup.py, PyInstaller)
+/build/
+/dist/
+*.c
+*.pyd
+*.so
+
+# Simulation outputs
+/rest2_output/
+/analysis_output/
+/rest2_validation/
+/data/
+*.nc
+*.dcd
+*.pkl
+leap.log
+tleap.in
+
+# Profiling
+*.prof
+
+# Local working copies and packaged builds (distribute builds via Releases)
+/fork/
+*.rar
+*.zip
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

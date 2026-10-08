@@ -1,0 +1,40 @@
+# Python dependencies for the PyREST2 setup / simulation / analysis app.
+#
+#   pip install -r requirements.txt
+#
+# IMPORTANT: AmberTools (tleap, antechamber, parmchk2) is NOT available from
+# pip. It is needed for the "Ligand Prep" and "System Generation" steps - see
+# README.md (conda: `conda install -c conda-forge ambertools`, or use
+# environment.yml, which installs everything including AmberTools).
+
+# Core scientific stack
+numpy>=2.0
+scipy>=1.10
+pandas>=2.0
+matplotlib>=3.7
+
+# GUI
+PySide6>=6.5
+
+# Molecular simulation / structure handling
+openmm>=8.1
+pdbfixer>=1.9
+parmed>=4.2
+mdtraj>=1.10
+netCDF4>=1.6
+
+# openmmtools runtime dependencies (openmmtools does not declare them itself)
+PyYAML>=6.0
+numba>=0.59
+pymbar>=4.0
+
+# Not published on PyPI.
+# openmmtools: installed straight from its GitHub release archive.
+openmmtools @ https://github.com/choderalab/openmmtools/archive/refs/tags/0.26.0.zip
+# mpiplus: bundled in this repo (MIT, Chodera Lab) with an updated versioneer -
+# the upstream release fails to build on Python >= 3.12. The path is relative,
+# so run pip from the repository root.
+./third_party/mpiplus
+
+# Optional: only needed to compile the helper modules with setup.py
+# Cython>=3.0

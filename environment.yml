@@ -1,0 +1,26 @@
+# Full conda environment, including AmberTools (tleap / antechamber / parmchk2),
+# which pip cannot install.
+#
+#   conda env create -f environment.yml
+#   conda activate rest2-remd
+name: rest2-remd
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - ambertools
+  - openmm>=8.1
+  - openmmtools>=0.24.2
+  - pdbfixer>=1.9
+  - parmed
+  - mdtraj>=1.10
+  - netcdf4
+  - numpy>=2.0
+  - scipy
+  - pandas
+  - matplotlib
+  - pyside6
+  - pyyaml
+  - numba
+  - pymbar>=4.0
+  - pip
