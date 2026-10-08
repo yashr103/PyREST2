@@ -7,8 +7,8 @@
   <img src="https://img.shields.io/badge/python-3.11%2B-blue.svg" alt="Python 3.11+">
 </p>
 
-A desktop GUI (PySide6) for creating, executing, and evaluating **REST2 replica
-exchange solute tempering** simulations using OpenMM and openmmtools, for both
+A desktop GUI (PySide6) for creating, executing, and evaluating ** replica
+exchange solute tempering 2 (REST2)** simulations using OpenMM and openmmtools, for both
 **protein–ligand complexes** and **protein-only (apo)** systems.
 
 **[USER_GUIDE.md](USER_GUIDE.md)** is a comprehensive guide that explains every
