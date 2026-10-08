@@ -3,12 +3,13 @@
 </p>
 
 <p align="center">
+  <a href="https://doi.org/10.5281/zenodo.23239190"><img src="https://zenodo.org/badge/1410096889.svg" alt="DOI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/python-3.11%2B-blue.svg" alt="Python 3.11+">
 </p>
 
-A desktop GUI (PySide6) for creating, executing, and evaluating ** replica
-exchange solute tempering 2 (REST2)** simulations using OpenMM and openmmtools, for both
+A desktop GUI (PySide6) for creating, executing, and evaluating **REST2 replica
+exchange solute tempering** simulations using OpenMM and openmmtools, for both
 **protein–ligand complexes** and **protein-only (apo)** systems.
 
 **[USER_GUIDE.md](USER_GUIDE.md)** is a comprehensive guide that explains every
@@ -98,7 +99,7 @@ and have distinct licenses.
 
 ## Credits
 
-Yashkumar Rathod and Prof. Sumit Biswas, **ViStA Lab**, BITS Pilani - K K Birla Goa Campus.
+Yashkumar Rathod and Sumit Biswas, **ViStA Lab**, BITS Pilani - K K Birla Goa Campus.
 
 <p align="center">
   <img src="assets/logo_vista.png" alt="ViStA Lab" height="54">
