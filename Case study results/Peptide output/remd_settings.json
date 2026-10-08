@@ -1,0 +1,370 @@
+{
+  "system_type_combo": {
+    "type": "QComboBox",
+    "value": "Protein only"
+  },
+  "pdb_input_path": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/prot.pdb"
+  },
+  "remove_waters_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "remove_hetatm_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "keep_alt_loc_combo": {
+    "type": "QComboBox",
+    "value": "Highest occupancy"
+  },
+  "chain_select_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "add_missing_res_cb": {
+    "type": "QCheckBox",
+    "value": false
+  },
+  "add_hydrogens_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "ph_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 7.0
+  },
+  "disulfide_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "preprocessed_pdb_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "ligand_input_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "ligand_ff_combo": {
+    "type": "QComboBox",
+    "value": "gaff2"
+  },
+  "charge_method_combo": {
+    "type": "QComboBox",
+    "value": "AM1-BCC"
+  },
+  "net_charge_spin": {
+    "type": "QSpinBox",
+    "value": 0
+  },
+  "multiplicity_spin": {
+    "type": "QSpinBox",
+    "value": 1
+  },
+  "generate_frcmod_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "ligand_conda_env_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "ligand_conda_env_path_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "ligand_conda_exe_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "preprocessed_ligand_mol2_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "preprocessed_ligand_frcmod_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "protein_ff_combo": {
+    "type": "QComboBox",
+    "value": "leaprc.protein.ff19SB"
+  },
+  "ligand_ff_combo_sysgen": {
+    "type": "QComboBox",
+    "value": "leaprc.gaff2"
+  },
+  "water_model_combo": {
+    "type": "QComboBox",
+    "value": "leaprc.water.opc"
+  },
+  "box_shape_combo": {
+    "type": "QComboBox",
+    "value": "Truncated octahedron (solvateoct)"
+  },
+  "box_padding_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 10.0
+  },
+  "neutralize_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "cation_combo": {
+    "type": "QComboBox",
+    "value": "Na+"
+  },
+  "anion_combo": {
+    "type": "QComboBox",
+    "value": "Cl-"
+  },
+  "ion_conc_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 0.15
+  },
+  "topology_prefix_edit": {
+    "type": "QLineEdit",
+    "value": "complex"
+  },
+  "sysgen_protein_pdb_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "tleap_path_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "conda_env_edit": {
+    "type": "QLineEdit",
+    "value": "amber-env"
+  },
+  "conda_env_path_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "conda_exe_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "sysgen_workdir_edit": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp"
+  },
+  "preprocessed_prmtop_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "preprocessed_inpcrd_path": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "nonbonded_method_combo": {
+    "type": "QComboBox",
+    "value": "PME"
+  },
+  "nonbonded_cutoff_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 1.0
+  },
+  "ewald_tol_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 0.0005
+  },
+  "constraints_combo": {
+    "type": "QComboBox",
+    "value": "HBonds"
+  },
+  "rigid_water_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "hmr_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "hydrogen_mass_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 1.5
+  },
+  "em_max_iter_spin": {
+    "type": "QSpinBox",
+    "value": 5000
+  },
+  "em_tolerance_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 10.0
+  },
+  "nvt_steps_spin": {
+    "type": "QSpinBox",
+    "value": 500000
+  },
+  "nvt_temp_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 300.0
+  },
+  "nvt_timestep_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 2.0
+  },
+  "nvt_thermostat_combo": {
+    "type": "QComboBox",
+    "value": "Langevin middle integrator"
+  },
+  "nvt_restraint_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "npt_steps_spin": {
+    "type": "QSpinBox",
+    "value": 500000
+  },
+  "npt_pressure_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 1.0
+  },
+  "npt_barostat_combo": {
+    "type": "QComboBox",
+    "value": "Monte Carlo barostat"
+  },
+  "npt_barostat_interval_spin": {
+    "type": "QSpinBox",
+    "value": 25
+  },
+  "remd_tmin_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 300.0
+  },
+  "remd_tmax_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 700.0
+  },
+  "remd_n_replicas_spin": {
+    "type": "QSpinBox",
+    "value": 18
+  },
+  "remd_temp_dist_combo": {
+    "type": "QComboBox",
+    "value": "Exponential spacing"
+  },
+  "remd_custom_temps_edit": {
+    "type": "QLineEdit",
+    "value": ""
+  },
+  "remd_exchange_interval_spin": {
+    "type": "QSpinBox",
+    "value": 1000
+  },
+  "remd_total_steps_spin": {
+    "type": "QSpinBox",
+    "value": 10000000
+  },
+  "remd_exchange_scheme_combo": {
+    "type": "QComboBox",
+    "value": "Neighbor swap (Metropolis)"
+  },
+  "remd_ligand_resnames_edit": {
+    "type": "QLineEdit",
+    "value": "MOL"
+  },
+  "remd_friction_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 1.0
+  },
+  "remd_checkpoint_interval_spin": {
+    "type": "QSpinBox",
+    "value": 25
+  },
+  "remd_platform_combo": {
+    "type": "QComboBox",
+    "value": "CUDA"
+  },
+  "remd_output_dir_edit": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp"
+  },
+  "remd_restart_cb": {
+    "type": "QCheckBox",
+    "value": false
+  },
+  "analysis_input_dir_edit": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp"
+  },
+  "analysis_topology_path": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/complex.prmtop"
+  },
+  "analysis_ref_pdb_path": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/complex.pdb"
+  },
+  "analysis_nc_path": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/rest2_remd.nc"
+  },
+  "analysis_nc_checkpoint_path": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/rest2_remd_checkpoint.nc"
+  },
+  "analysis_n_replicas_spin": {
+    "type": "QSpinBox",
+    "value": 18
+  },
+  "analysis_tmin_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 300.0
+  },
+  "analysis_tmax_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 700.0
+  },
+  "analysis_ligand_sel_edit": {
+    "type": "QLineEdit",
+    "value": "resname MOL"
+  },
+  "analysis_receptor_sel_edit": {
+    "type": "QLineEdit",
+    "value": "protein"
+  },
+  "analysis_timestep_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 2.0
+  },
+  "analysis_steps_per_iter_spin": {
+    "type": "QSpinBox",
+    "value": 1000
+  },
+  "analysis_checkpoint_interval_spin": {
+    "type": "QSpinBox",
+    "value": 25
+  },
+  "analysis_stride_spin": {
+    "type": "QSpinBox",
+    "value": 1
+  },
+  "analysis_skip_structural_cb": {
+    "type": "QCheckBox",
+    "value": false
+  },
+  "analysis_image_molecules_cb": {
+    "type": "QCheckBox",
+    "value": true
+  },
+  "analysis_skip_energy_decomp_cb": {
+    "type": "QCheckBox",
+    "value": false
+  },
+  "analysis_energy_decomp_stride_spin": {
+    "type": "QSpinBox",
+    "value": 1
+  },
+  "analysis_fes_outlier_z_spin": {
+    "type": "QDoubleSpinBox",
+    "value": 5.0
+  },
+  "analysis_output_dir_edit": {
+    "type": "QLineEdit",
+    "value": "/home/vista/Documents/Yash/REMD_wild/output/test_hightemp/ana"
+  }
+}
