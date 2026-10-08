@@ -2,26 +2,6 @@
 """
 analysis.py - Analysis backend (publication-subset REST2 analysis)
 
-Refactored from a flat, argparse-driven script into run_rest2_analysis(...),
-a callable function, so it can be run from the "Analysis" GUI page instead
-of only from the command line. The CLI entry point still works the same way:
-
-    python analysis.py --dir rest2_output --out analysis_output ...
-
-Analyses produced (see the "publication subset" discussion):
-  - REMD diagnostics : pairwise acceptance rates, replica temperature walk,
-                        per-state energy distributions (overlap check)
-  - Structural        : backbone/protein RMSD, per-residue RMSF, Rg time series
-  - Ligand binding     : ligand RMSD (site-fit), ligand-receptor COM distance
-  - Free energy        : 2D RMSD-Rg landscape (ground state, T_min)
-
-Note on units:
-  - `energies` read from the NetCDF is openmmtools' REDUCED potential
-    (dimensionless, kT units), not kJ/mol. Since REST2 keeps the real
-    temperature at T_min for every thermodynamic state (only the Hamiltonian
-    is scaled), the conversion is a constant factor: U[kJ/mol] =
-    u_reduced * kB * T_min.
-
 Dependencies: mdtraj, netCDF4, numpy, pandas, matplotlib, scipy
     conda install -c conda-forge mdtraj scipy pandas matplotlib netcdf4
 """
@@ -177,7 +157,7 @@ RMSD_SERIES_COLORS = {
 }
 RG_COLOR = "#000000"
 
-# RMSF plot color - solid per-residue data, no smoothing overlay.
+# RMSF plot color 
 RMSF_MAIN_COLOR = "#7B3294"  # purple
 
 
@@ -213,9 +193,6 @@ def _get_nc_var(ds, name):
 
 
 
-# Main entry point
-
-
 def run_rest2_analysis(
     input_dir="rest2_output",
     output_dir="analysis_output",
@@ -241,50 +218,7 @@ def run_rest2_analysis(
     fes_outlier_z=5.0,
     log_callback=None,
 ):
-    """
-    Runs the publication-subset REST2 analysis. Returns a dict with
-    'output_dir', 'plots' (list of PNG paths written), 'csvs' (list of
-    CSV paths written) and 'protein_only' (the mode actually used).
-
-    protein_only: True analyses an apo / ligand-free system - ligand_sel is
-    ignored, every ligand metric/plot/CSV column is skipped, and the REST
-    solute is labelled as "Protein". False forces protein-ligand mode. None
-    (default) takes the value recorded by simulation_run.py in
-    <input_dir>/run_metadata.json, else falls back to protein-only when
-    ligand_sel matches no atoms.
-
-    fes_outlier_z: before binning the RMSD-Rg free-energy surface, frames
-    further than this many robust z-scores (median/MAD) from the bulk in
-    either coordinate are dropped - isolated single frames otherwise stretch
-    the axes and show up as a fake minimum. Removal only happens if the
-    flagged frames are at most 1% of the data; a larger group is treated as
-    a genuine sub-population and kept. 0 or None disables the filter. The
-    CSV exports always keep every frame.
-
-    If <input_dir>/run_metadata.json exists (written by simulation_run.py),
-    its replica count, exact temperature ladder (including linear/custom
-    ladders) and timing values take precedence over n_replicas / t_min /
-    t_max / timestep / steps_per_iter / checkpoint_interval, with a warning
-    for every value that disagrees.
-
-    energy_decomposition_stride: extra thinning applied ON TOP OF `stride`,
-    just for the E_solute/E_water-interaction decomposition - this step
-    recomputes energies from scratch per frame via OpenMM and is by far the
-    slowest part of this script, so it defaults to using far fewer frames
-    than the structural analyses. Set skip_energy_decomposition=True to
-    disable it entirely.
-
-    n_equil_frames: number of leading (post-stride) checkpoint frames to
-    discard from EVERY reconstructed state-continuous trajectory before any
-    structural or energy analysis runs. Frame 0 of the checkpoint is
-    frequently the pre-production equilibrated/minimized configuration
-    (written before the first exchange/production step), not a real draw
-    from any thermodynamic state's equilibrium ensemble - it typically shows
-    up as an anomalously low-energy outlier (esp. in the protein
-    intramolecular term) relative to the bulk of the trajectory. Default of
-    1 drops just that frame; set to 0 to disable, or higher if more burn-in
-    should be discarded.
-    """
+   
     if not HAS_MDTRAJ:
         raise ImportError(
             "mdtraj is not installed. Install with: conda install -c conda-forge mdtraj"
@@ -401,7 +335,7 @@ def run_rest2_analysis(
     log(f"  Time Per Frame  : {time_per_frame:.4f} ns  (checkpoint)")
     log(f"  Time Per Iter   : {time_per_iter:.6f} ns  (energy)")
 
-    # ── Shared mutable state across the nested steps below ─────────────
+    # Shared mutable state across the nested steps below 
     S = {
         "replica_states": None,
         "state_replicas": None,
@@ -419,7 +353,7 @@ def run_rest2_analysis(
         "all_lig_dist": {},
     }
 
-    # ── 1. NetCDF parsing (raw netCDF4, no openmmtools dependency) ──────
+    # 1. NetCDF parsing (raw netCDF4, no openmmtools dependency)
     def load_netcdf_analysis():
         if not nc_file:
             log("ERROR: MultiState NetCDF target could not be resolved.")
@@ -540,7 +474,7 @@ def run_rest2_analysis(
     load_netcdf_analysis()
     extract_state_energies()
 
-    # ── 2. State-continuous trajectory reconstruction ───────────────────
+    # 2. State-continuous trajectory reconstruction
     def load_state_continuous_trajectories():
         if not nc_checkpoint or not os.path.exists(topology):
             log("Skipping structural analysis - trajectory or topology file missing.")
@@ -579,11 +513,7 @@ def run_rest2_analysis(
                     )
                 frame_indices = list(range(0, n_chk_frames, stride))
 
-                # Checkpoint frame k belongs to iteration k * checkpoint_interval.
-                # If that exceeds the stored iterations every frame clamps to the
-                # last one, freezing the replica->state map: each "state" then
-                # degenerates into a replica-continuous trajectory that wanders
-                # the whole ladder, making all states look identical.
+                # Checkpoint frame k belongs to iteration k * checkpoint_interval. If that exceeds the stored iterations every frame clamps to the last one, freezing the replica->state map: each "state" then degenerates into a replica-continuous trajectory that wanders the whole ladder, making all states look identical.
                 n_iterations_stored = state_replicas.shape[0]
                 last_needed = frame_indices[-1] * checkpoint_interval if frame_indices else 0
                 if last_needed > n_iterations_stored - 1:
@@ -659,7 +589,7 @@ def run_rest2_analysis(
     if not skip_structural:
         load_state_continuous_trajectories()
 
-    # ── Drop burn-in frames from every reconstructed trajectory ─────────
+    # Drop burn-in frames from every reconstructed trajectory 
     # Must happen AFTER reconstruction (needs full trajs to slice) and
     # BEFORE ref_struct fallback / structural / energy-decomposition blocks
     # (all of which consume S["state_trajs"]), so the exclusion is applied
@@ -701,7 +631,7 @@ def run_rest2_analysis(
             f"analysed frame of state 0 (that frame will have RMSD = 0)"
         )
 
-    # ── Resolve protein-only vs protein-ligand mode ──────────────────────
+    # Resolve protein-only vs protein-ligand mode 
     # Done once, up front, so the structural and energy-decomposition blocks
     # agree on the ligand atoms (and so an invalid ligand selection can't
     # abort the whole structural block in a protein-only run).
@@ -847,7 +777,7 @@ def run_rest2_analysis(
     plot_replica_walk()
     plot_energy_distributions()
 
-    # ── 4. Structural + ligand-binding metrics ──────────────────────────
+    # 4. Structural + ligand-binding metrics 
     def run_structural_block():
         state_trajs = S["state_trajs"]
         ref_struct = S["ref_struct"]
@@ -860,12 +790,7 @@ def run_rest2_analysis(
             )
             return
 
-        # Guard against a topology/atom-count mismatch between the reference
-        # structure (ref_pdb, e.g. complex.pdb) and the trajectories (which are
-        # built from the prmtop topology). If they differ - e.g. the PDB lacks
-        # ions/waters that tleap added to the prmtop - selections computed from
-        # the trajectory topology would index out of bounds on ref_struct
-        # ("index N is out of bounds for axis 1 with size M").
+
         if ref_struct is not None and ref_struct.n_atoms != first_traj.n_atoms:
             equil_frame = S["equil_frame"]
             log(
@@ -958,9 +883,7 @@ def run_rest2_analysis(
                     and ref_lig is not None
                     and len(traj_lig) > 0
                 ):
-                    # Superpose a COPY, not the shared state_trajs[s] object -
-                    # traj.superpose() mutates its target in place, and
-                    # state_trajs[s] is reused elsewhere.
+
                     traj_aligned = traj.slice(slice(None), copy=True).superpose(
                         ref_struct, atom_indices=rec_indices
                     )
@@ -979,14 +902,7 @@ def run_rest2_analysis(
                     )
                     delta = lig_com - rec_com
                     # Minimum-image correction: without this, if the ligand or
-                    # receptor COM sits near a periodic box edge, the raw
-                    # coordinate difference can spike to a spuriously large
-                    # value instead of the true (shortest, wrapped) distance.
-                    # This is an orthorhombic approximation (per-axis wrapping
-                    # using box lengths) - exact for cubic/rectangular boxes,
-                    # an approximation for non-orthorhombic boxes (e.g. the
-                    # truncated octahedron used in system_generation.py), but
-                    # still substantially more correct than no PBC treatment.
+     
                     if traj_aligned.unitcell_lengths is not None:
                         box_lengths = traj_aligned.unitcell_lengths  # (n_frames, 3), nm
                         delta = delta - box_lengths * np.round(delta / box_lengths)
@@ -1046,7 +962,7 @@ def run_rest2_analysis(
             log(f"  -> {combined_path}  (all states, long format)")
             csvs_written.append(combined_path)
 
-        # ── Plots ────────────────────────────────────────────────────
+        #  Plots 
         def _plot_raw(ax, t_ns, y, color, label):
             """Plots only the raw per-frame series, no smoothing."""
             ax.plot(t_ns, y, color=color, lw=0.8, alpha=0.9, label=label, zorder=2)
@@ -1308,13 +1224,8 @@ def run_rest2_analysis(
     if S["state_trajs"] and not skip_structural:
         run_structural_block()
 
-    # ── 4b. Energy decomposition: E_solute (intramolecular) vs
-    #        E_solute-water (interaction) - the classic REST validation
-    #        diagnostic (Wang/Terakawa-style figures), generalized from
-    #        "protein" to "solute" (protein+ligand) since that's what's
-    #        actually REST-scaled in this pipeline (see simulation_run.py's
-    #        rest_atoms = protein U ligand), not just the bare protein the
-    #        original reference figures used (which had no ligand at all).
+    # ── 4b. Energy decomposition: E_solute (intramolecular) vs E_solute-water (interaction) - the classic REST validation
+
     def run_energy_decomposition_block():
         if not HAS_OPENMM_PARMED:
             log(
@@ -1584,7 +1495,7 @@ def run_rest2_analysis(
         if not all_e_solute:
             return
 
-        # ── Outlier-frame report ─────────────────────────────────────────
+        # Outlier-frame report 
         if outlier_rows:
             outlier_df = drop_ligand_columns(
                 pd.DataFrame(outlier_rows).sort_values(
@@ -1611,12 +1522,7 @@ def run_rest2_analysis(
 
         rows = []
         for s in sorted(all_e_solute.keys()):
-            # beta_m/beta_0 = T_min/T_m (since beta = 1/kT). This MUST match
-            # simulation_run.py's set_rest_parameters(), which scales solute
-            # electrostatics by sqrt(beta_m/beta_0) - using T_m/T_min here
-            # instead (the reciprocal) would apply a factor that grows with
-            # temperature when the real one shrinks, inverting the state
-            # ordering in the scaled/combination plots below.
+
             beta_ratio = t_min / temperatures[s]
             half_sqrt_beta_ratio = 0.5 * math.sqrt(beta_ratio)
             n = len(all_e_solute[s])
@@ -1784,7 +1690,7 @@ def run_rest2_analysis(
         plt.tight_layout()
         savefig("15_rest_combination_distributions.png")
 
-        # ── New: protein vs ligand intramolecular energy overlap ─────────
+        # New: protein vs ligand intramolecular energy overlap 
         def plot_protein_ligand_split():
             if protein_only:
                 return
@@ -1843,7 +1749,7 @@ def run_rest2_analysis(
     if S["state_trajs"] and not skip_structural and not skip_energy_decomposition:
         run_energy_decomposition_block()
 
-    # ── 5. Summary export ────────────────────────────────────────────────
+    # 5. Summary export 
     def write_summary():
         rows = []
         for s in range(n_replicas):
