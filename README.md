@@ -3,11 +3,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/yashr103/PyREST2/actions/workflows/build-macos.yml">
-    <img src="https://github.com/yashr103/PyREST2/actions/workflows/build-macos.yml/badge.svg" alt="macOS build"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
   <img src="https://img.shields.io/badge/python-3.11%2B-blue.svg" alt="Python 3.11+">
-  <img src="https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg" alt="Platforms">
 </p>
 
 A desktop GUI (PySide6) for creating, executing, and evaluating **REST2 replica
@@ -76,38 +73,6 @@ Simulation run page.
 ```bash
 python main.py
 ```
-
-The command line may also be used to execute the production and analysis phases:
-
-```bash
-python simulation_run.py --prmtop complex.prmtop --inpcrd complex.inpcrd --protein-only --output-dir rest2_output
-```
-
-```bash
-python analysis.py --dir rest2_output --top complex.prmtop --ref complex.pdb --out analysis_output
-```
-
-Instead of `--protein-only`, use `--ligand-resnames MOL` for a protein–ligand run
-(use the ligand's residue name from your topology).
-
-The standalone utilities are `dcd_extraction.py` (writes DCD trajectories from
-the `.nc` storage) and `fes_with_structures.py` (free-energy surface annotated
-with structures). Run either script with `--help` for all options.
-
-## Benchmarking
-
-`benchmarks/validate_rest2.py` verifies that the REST2 Hamiltonian is constructed
-correctly on your own system (reference-state identity, λ-scaling law,
-finite-difference forces, NVE energy conservation, GPU vs double-precision
-agreement) and, given a production directory, recalculates the stored
-replica-exchange energies:
-
-```bash
-python benchmarks/validate_rest2.py --prmtop complex.prmtop --inpcrd complex.inpcrd --ligand-resnames MOL --run-dir rest2_output
-```
-
-For information on each check, when to perform it, and how to verify runs made
-with prior versions, see [benchmarks/README.md](benchmarks/README.md).
 
 ## Optional: compiled build
 
