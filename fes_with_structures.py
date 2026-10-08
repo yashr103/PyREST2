@@ -1,16 +1,5 @@
 """Standalone FES + representative-structure figure for REST2 output.
 
-Reconstructs the thermodynamic state-0 trajectory from the openmmtools
-checkpoint file, computes the backbone RMSD vs protein Rg free-energy
-landscape, then selects a set of representative trajectory frames that
-span the full energy range (highest -> lowest free energy) and renders
-each one as a cartoon in its own panel on the right side of the figure,
-connected to its (RMSD, Rg) position on the 2D map.
-
-Usage:
-    python fes_with_structures.py --input-dir rest2_output --topology complex.prmtop
-    python fes_with_structures.py --nc-file rest2_remd.nc --nc-checkpoint rest2_remd_checkpoint.nc
-
 Output: fes_with_structures.png (or the path given with --output)
 """
 
@@ -417,8 +406,7 @@ def main():
         )
 
     # Inferno pixel-grid theme: black/purple = low (favorable) free energy,
-    # orange/yellow = high free energy, rendered as raw histogram pixels
-    # (no smoothing/interpolation) to match the reference look.
+ 
     cmap = plt.get_cmap("inferno")
     vmin, vmax = G.min(), G.max()
 
