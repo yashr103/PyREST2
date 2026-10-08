@@ -70,9 +70,7 @@ except ImportError:
     HAS_OPENMM_PARMED = False
 
 
-# ═══════════════════════════════════════════════════════════════════════════
 # Constants that don't depend on any particular run
-# ═══════════════════════════════════════════════════════════════════════════
 
 KB_KJ_PER_MOL_K = 0.0083144621  # kJ/mol/K, used to convert reduced potentials -> kJ/mol
 
@@ -140,9 +138,6 @@ plt.rcParams.update(
     }
 )
 
-# All figures share the single font stack defined in plt.rcParams above, so
-# labels, titles, legends and tick text look identical across the whole
-# analysis output.
 
 
 def grid_shape(n):
@@ -174,9 +169,7 @@ def lighten_color(color, amount=0.55):
     return (r + (1 - r) * amount, g + (1 - g) * amount, b + (1 - b) * amount)
 
 
-# Theme used for the combined RMSD plot and the standalone Rg plot: each
-# series is drawn as a pale, thin raw-data line under a bold moving-average
-# line of the same hue, on a white background.
+
 RMSD_SERIES_COLORS = {
     "backbone": "#000000",  # black
     "lig_fit_prot": "#d62728",  # red
@@ -219,9 +212,8 @@ def _get_nc_var(ds, name):
     return None
 
 
-# ═══════════════════════════════════════════════════════════════════════════
+
 # Main entry point
-# ═══════════════════════════════════════════════════════════════════════════
 
 
 def run_rest2_analysis(
