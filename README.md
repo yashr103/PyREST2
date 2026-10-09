@@ -99,7 +99,7 @@ and have distinct licenses.
 
 ## Credits
 
-Yashkumar Rathod and Sumit Biswas, **ViStA Lab**, BITS Pilani - K K Birla Goa Campus.
+Yashkumar Rathod and Prof. Sumit Biswas, **ViStA Lab**, BITS Pilani - K K Birla Goa Campus.
 
 <p align="center">
   <img src="assets/logo_vista.png" alt="ViStA Lab" height="54">
